@@ -1,0 +1,28 @@
+ships = [
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 0],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+    [5, 5, 0, 5, 5, 0, 5, 5, 5, 0],
+    [5, 0, 5, 0, 5, 5, 0, 0, 5, 0],
+    [5, 5, 0, 5, 0, 5, 5, 5, 5, 5],
+    [5, 5, 0, 0, 5, 5, 5, 5, 5, 5],
+    [5, 5, 5, 0, 0, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 0, 5, 5, 5, 5, 5],
+    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]]
+
+    
+    four_wide_count = 0
+    while four_wide_count < 0:
+       four_wide_count += add_ship(3, 4)
+
+    three_wide_count = 0
+    while three_wide_count < 0:
+        three_wide_count += add_ship(2, 3)
+
+    two_wide_count = 0
+    while two_wide_count < 0:
+        two_wide_count += add_ship(1, 2)
+
+    one_wide_count = 0
+    while one_wide_count < 2:
+        one_wide_count += add_ship(0, 1)

@@ -3,28 +3,24 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 probMap = np.array([
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]])
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]])
 
 ships = [
-    [5, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-    [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0, 0]]
 # test
 
 # 1x 4 Wide - 1
@@ -44,23 +40,23 @@ def check_place(start_x, start_y, end_x, end_y):
             true_x = start_x + x
             true_y = start_y + y
 
-            true_y = min([9, true_y])
-            true_x = min([9, true_x])
+            true_y = min([7, true_y])
+            true_x = min([7, true_x])
 
             if ships[max(0, true_y - 1)][max(0, true_x - 1)] is not 0 and ships[max(0, true_y - 1)][max(0, true_x - 1)] < 5:
                 return False
             if ships[true_y][true_x] is not 0:
                 return False
-            if ships[min(9, true_y + 1)][min(9, true_x + 1)] is not 0 and ships[min(9, true_y + 1)][min(9, true_x + 1)] < 5:
+            if ships[min(7, true_y + 1)][min(7, true_x + 1)] is not 0 and ships[min(7, true_y + 1)][min(7, true_x + 1)] < 5:
                 return False
     return True
 
 
 def add_ship(width, val):
 
-    ran_x = random.randrange(-2, 12)
-    ran_y = random.randrange(-2, 12)
-    orient = random.randrange(0, 12)
+    ran_x = random.randrange(-2, 9)
+    ran_y = random.randrange(-2, 9)
+    orient = random.randrange(0, 16)
 
     start_x = ran_x
     start_y = ran_y
@@ -73,8 +69,8 @@ def add_ship(width, val):
 
     start_y = max(0, start_y)
     start_x = max(0, start_x)
-    end_x   = min(9, end_x)
-    end_y   = min(9, end_y)
+    end_x   = min(7, end_x)
+    end_y   = min(7, end_y)
     valid = check_place(start_x, start_y, end_x, end_y)
    
     if valid:
@@ -91,11 +87,11 @@ def add_ship(width, val):
         return 1
     else:
         return 0
-runs = 5000000
+runs = 100000
 
 def scan_hit(width):
-    for y in range(10):
-        for x in range(10):
+    for y in range(8):
+        for x in range(8):
             if ships[y][x] is 6:
                 probMap[y][x] = 10
 
@@ -103,7 +99,7 @@ def scan_hit(width):
                     hit_x = x
                     hit_y = y - (width /2) + w
 
-                    hit_y = min(9,hit_y)
+                    hit_y = min(7,hit_y)
                     hit_y = max(0, hit_y)
 
                     probMap[hit_y][hit_x] = ((runs / width) * -(abs(hit_y - y))) / width + 1
@@ -113,7 +109,7 @@ def scan_hit(width):
                     hit_y = y
                     hit_x = x - (width /2 - 1) + w
 
-                    hit_x = min(9,hit_x)
+                    hit_x = min(7,hit_x)
                     hit_x = max(0, hit_x)
 
                     probMap[hit_y][hit_x] = ((runs / width) * -(abs(hit_x - x))) / width + 1
@@ -127,32 +123,30 @@ for i in tqdm(range(runs)):
    
 
     ships = [
-    [5, 5, 5, 0, 0, 5, 5, 5, 0, 5],
-    [5, 5, 5, 0, 0, 5, 5, 5, 5, 5],
-    [5, 5, 5, 0, 5, 0, 5, 5, 5, 5],
-    [5, 5, 0, 5, 0, 5, 5, 5, 5, 5],
-    [5, 5, 0, 0, 5, 0, 5, 0, 0, 0],
-    [5, 5, 0, 5, 0, 0, 0, 5, 5, 5],
-    [5, 5, 0, 0, 0, 5, 0, 5, 5, 5],
-    [0, 0, 0, 5, 5, 5, 5, 5, 5, 5],
-    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-    [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]]
+    [0, 5, 5, 5, 0, 0, 5, 5],
+    [5, 5, 5, 5, 0, 0, 5, 5],
+    [0, 5, 5, 5, 0, 0, 5, 5],
+    [0, 5, 5, 5, 0, 0, 5, 5],
+    [0, 5, 5, 5, 0, 5, 5, 5],
+    [0, 0, 0, 0, 0, 5, 5, 5],
+    [0, 5, 0, 0, 0, 5, 5, 5],
+    [5, 0, 0, 0, 0, 5, 5, 5]]
 
     
     four_wide_count = 0
-    while four_wide_count < 0:
+    while four_wide_count < 1:
        four_wide_count += add_ship(3, 4)
 
     three_wide_count = 0
-    while three_wide_count < 0:
+    while three_wide_count < 2:
         three_wide_count += add_ship(2, 3)
 
     two_wide_count = 0
-    while two_wide_count < 1:
+    while two_wide_count < 2:
         two_wide_count += add_ship(1, 2)
 
     one_wide_count = 0
-    while one_wide_count < 2:
+    while one_wide_count < 0:
         one_wide_count += add_ship(0, 1)
     #scan_hit(4)
 
